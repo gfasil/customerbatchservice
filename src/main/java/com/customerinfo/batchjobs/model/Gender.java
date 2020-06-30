@@ -14,7 +14,7 @@ public enum Gender {
     public String geValue(){
         return gender;
     }
-    public Optional<Gender> entryOf(final String gender){
+    public static Optional<Gender> entryOf(final String gender){
         Gender temp=null;
 
         for (Gender g:Gender.values()
