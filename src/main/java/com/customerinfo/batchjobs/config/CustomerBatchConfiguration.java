@@ -5,6 +5,7 @@ import com.customerinfo.batchjobs.itemreader.CustomerItemReader;
 import com.customerinfo.batchjobs.itemwriter.CustomerItemWriter;
 import com.customerinfo.batchjobs.model.Customer;
 import com.customerinfo.batchjobs.processor.CustomerItemProcessor;
+import org.springframework.batch.core.Job;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -49,6 +50,15 @@ public class CustomerBatchConfiguration {
                 .processor(customerItemProcessor)
                 // defines the writer
                 .writer(customerItemWriter)
+                .build();
+    }
+    @Bean
+    public Job importCustomersJob() {
+        return jobBuilderFactory.get("JOB-IMPORT-CUSTOMER")
+                // defines the step flow. You can add more steps in a Job by using next() method
+                .flow(importCustomersStep())
+                // end configuration
+                .end()
                 .build();
     }
 }
