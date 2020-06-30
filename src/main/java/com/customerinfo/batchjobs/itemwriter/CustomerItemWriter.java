@@ -10,6 +10,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 
 @Service
 public class CustomerItemWriter extends FlatFileItemWriter<Customer> {
@@ -41,32 +42,32 @@ public class CustomerItemWriter extends FlatFileItemWriter<Customer> {
         this.setResource(new FileSystemResource(properties.getAmericansFile()));
         this.setLineAggregator(lineAggregator);
     }
+    final static BiConsumer<Customer,StringBuilder> mapCustomer=(customer, linesToWrite) -> {
+        final String line = new StringBuilder()
+                .append(customer.getId())
+                .append(DEFAULT_DELIMITER)
+                .append(customer.getFirstName())
+                .append(DEFAULT_DELIMITER)
+                .append(customer.getLastName())
+                .append(DEFAULT_DELIMITER)
+                .append(customer.getBirthday())
+                .append(DEFAULT_DELIMITER)
+                .append(customer.getGender().getValue())
+                .append(DEFAULT_DELIMITER)
+                .append(customer.getAddress().getStreet())
+                .append(DEFAULT_DELIMITER)
+                .append(customer.getAddress().getCountry())
+                .toString();
+
+        // appends line to StringBuilder
+        linesToWrite.append(line).append(DEFAULT_LINE_BREAK);
+    };
     @Override
     public String doWrite(final List<? extends Customer> items) {
         // creates a StringBuilder which is receive the lines to write
         final StringBuilder linesToWrite = new StringBuilder();
 
-        items.forEach(customer -> {
-            // creates line with Customer properties
-            final String line = new StringBuilder()
-                    .append(customer.getId())
-                    .append(DEFAULT_DELIMITER)
-                    .append(customer.getFirstName())
-                    .append(DEFAULT_DELIMITER)
-                    .append(customer.getLastName())
-                    .append(DEFAULT_DELIMITER)
-                    .append(customer.getBirthday())
-                    .append(DEFAULT_DELIMITER)
-                    .append(customer.getGender().getValue())
-                    .append(DEFAULT_DELIMITER)
-                    .append(customer.getAddress().getStreet())
-                    .append(DEFAULT_DELIMITER)
-                    .append(customer.getAddress().getCountry())
-                    .toString();
-
-            // appends line to StringBuilder
-            linesToWrite.append(line).append(DEFAULT_LINE_BREAK);
-        });
+        items.forEach(customer-> mapCustomer.accept(customer,linesToWrite));
 
         // returns lines to write (limited to chunk size)
         return linesToWrite.toString();
