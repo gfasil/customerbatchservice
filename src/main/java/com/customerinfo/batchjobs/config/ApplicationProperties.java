@@ -11,7 +11,7 @@ public class ApplicationProperties {
     @Value("${batch.input.file-name}")
     private String inputFile;
 
-    @Value("${batch.output.americans.file-name}")
+    @Value("${batch.output.addis.file-name}")
     private String americansFile;
 
 }
