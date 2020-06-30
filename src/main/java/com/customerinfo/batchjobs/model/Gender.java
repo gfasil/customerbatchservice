@@ -1,7 +1,5 @@
 package com.customerinfo.batchjobs.model;
 
-import java.util.Optional;
-
 public enum Gender {
     FEMALE("female"),
     MALE("male");
@@ -14,13 +12,13 @@ public enum Gender {
     public String getValue(){
         return gender;
     }
-    public static Optional<Gender> entryOf(final String gender){
+    public static Gender entryOf(final String gender){
         Gender temp=null;
 
         for (Gender g:Gender.values()
              ) {
             if(g.getValue().equals(gender)) temp= g;
         }
-        return Optional.ofNullable(temp);
+        return temp;
     }
 }

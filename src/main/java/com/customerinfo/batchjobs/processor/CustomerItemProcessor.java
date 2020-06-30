@@ -33,7 +33,7 @@ public class CustomerItemProcessor implements ItemProcessor<CustomerInput, Custo
         customer.setId(UUID.fromString(customerInput.getId()));
         customer.setFirstName(customerInput.getFirstName());
         customer.setLastName(customerInput.getLastName());
-        customer.setGender(Gender.entryOf(customerInput.getGender()).orElse(null));
+        customer.setGender(Gender.entryOf(customerInput.getGender()));
         customer.setBirthday(LocalDate.parse(customerInput.getBirthday(), formatter));
 
         address.setStreet(customerInput.getAddress());
