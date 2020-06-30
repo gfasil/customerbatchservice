@@ -15,6 +15,7 @@ import java.util.function.BiConsumer;
 @Service
 public class CustomerItemWriter extends FlatFileItemWriter<Customer> {
     // declared constants to better organize the code
+
     private static final String DEFAULT_DELIMITER = ";";
     private static final String DEFAULT_LINE_BREAK = "\n";
     private static final String ID_HEADER = "Id";
