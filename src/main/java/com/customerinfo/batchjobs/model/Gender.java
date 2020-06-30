@@ -11,7 +11,7 @@ public enum Gender {
     Gender(final String gender) {
         this.gender=gender;
     }
-    public String geValue(){
+    public String getValue(){
         return gender;
     }
     public static Optional<Gender> entryOf(final String gender){
@@ -19,7 +19,7 @@ public enum Gender {
 
         for (Gender g:Gender.values()
              ) {
-            if(g.geValue().equals(gender)) temp= g;
+            if(g.getValue().equals(gender)) temp= g;
         }
         return Optional.ofNullable(temp);
     }
