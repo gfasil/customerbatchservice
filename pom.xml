@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.customerinfo</groupId>
     <artifactId>batchjobs</artifactId>
-    <version>0.0.11-SNAPSHOT</version>
+    <version>0.0.13-SNAPSHOT</version>
     <name>batchjobs</name>
     <description>customer info batch job project for Spring Boot</description>
 
